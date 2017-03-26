@@ -1,0 +1,169 @@
+rabbitmq:
+  image: rabbitmq:management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+eureka:
+    build: ../restful-blog-eureka
+    ports:
+        - "8761:8761"        
+    container_name: restful-blog-eureka
+    environment:
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m
+gogs:
+    image: gogs/gogs
+    container_name: gogs
+    ports:
+       - "8022:22"
+       - "3000:3000"
+    volumes:
+       - "gogs:/data"    
+       
+configuration:
+    build: ../restful-blog-configuration
+    ports:
+        - "8888:8888"
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m
+    links:
+        - eureka
+        - gogs
+    container_name: restful-blog-configuration
+        
+
+log:
+    build: ../restful-blog-log
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+    links:
+        - rabbitmq
+        - restful_blog_log
+        
+credentials:
+    build: ../restful-blog-credentials
+    ports:
+        - "8181:8181"
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m
+    container_name: restful-blog-credentials
+    links:
+        - eureka
+        - configuration
+        - restful_blog_auth
+        - rabbitmq
+
+author:
+    build: ../restful-blog-author
+    ports:
+        - "8282:8282"
+    container_name: restful-blog-author    
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m   
+    links:
+        - eureka
+        - credentials
+        - configuration
+        - posts
+        - restful_blog_author
+        - rabbitmq
+
+posts:
+    build: ../restful-blog-posts
+    ports:
+        - "8383:8383"
+        - "8000:8000"        
+    container_name: restful-blog-posts
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m   
+    links:
+        - eureka
+        - credentials
+        - configuration
+        - categories
+        - restful_blog_posts
+        - rabbitmq        
+
+categories:
+    build: ../restful-blog-categories
+    ports:
+        - "8484:8484"
+    container_name: restful-blog-categories
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - JVM_OPTS=-Xmx512m -Xms512m -XX:MaxPermSize=128m   
+    links:
+        - eureka
+        - credentials
+        - configuration
+#        - posts
+        - restful_blog_categories
+        - rabbitmq
+        
+#hystrix:
+#  build: ../restful-blog-monitor
+#  ports:
+#    - "8383:8383"
+#  environment:
+#    - SPRING_PROFILES_ACTIVE=docker
+#  links:
+#    - credentials
+#    - author
+#    - eureka
+
+restful_blog_auth:
+    image: mysql:latest
+    container_name: restful_blog_auth
+    ports:
+        - 3307:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: restful_blog_auth
+    volumes:
+        - "restful_blog_auth:/var/lib/mysql"
+
+restful_blog_author:
+    image: mysql:latest
+    container_name: restful_blog_author
+    ports:
+        - 3308:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: restful_blog_author
+    volumes:
+        - "restful_blog_author:/var/lib/mysql"
+
+restful_blog_log:
+    image: mysql:latest
+    container_name: restful_blog_log
+    ports:
+        - 3309:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: restful_blog_log
+    volumes:
+        - "restful_blog_log:/var/lib/mysql"    
+restful_blog_posts:
+    image: mysql:latest
+    container_name: restful_blog_posts
+    ports:
+        - 3310:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: restful_blog_posts
+    volumes:
+        - "restful_blog_posts:/var/lib/mysql"    
+restful_blog_categories:
+    image: mysql:latest
+    container_name: restful_blog_categories
+    ports:
+        - 3311:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: restful_blog_categories
+    volumes:
+        - "restful_blog_categories:/var/lib/mysql"           

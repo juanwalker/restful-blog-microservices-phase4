@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.benjsicam.restfulblog.RestfulBlogEurekaApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.296 sec - in com.benjsicam.restfulblog.RestfulBlogEurekaApplicationTests

@@ -1,0 +1,37 @@
+-- --------------------------------------------------------
+-- Host:                         192.168.99.100
+-- Versión del servidor:         5.7.17 - MySQL Community Server (GPL)
+-- SO del servidor:              Linux
+-- HeidiSQL Versión:             9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+-- Volcando estructura para tabla restful_blog_posts.post
+CREATE TABLE IF NOT EXISTS `post` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `content` text,
+  `date` date DEFAULT NULL,
+  `author` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `post_author` (`author`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- Volcando datos para la tabla restful_blog_posts.post: ~6 rows (aproximadamente)
+/*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` (`id`, `content`, `date`, `author`) VALUES
+	(1, 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus bibendum, lorem sit amet hendrerit consequat, lorem massa pellentesque odio, et dapibus turpis sem ut nibh. Maecenas luctus eros magna. In hac habitasse platea dictumst. Proin nisi nunc, consectetur ac porttitor a, interdum sit amet massa. Phasellus vulputate imperdiet mauris, eu aliquam odio feugiat vel. Duis quis malesuada velit. Ut facilisis sem non ante dapibus tempor. Nulla arcu metus, varius sed laoreet vitae, tempor vel urna. Vestibulum et interdum elit.', '2013-05-07', 1),
+	(2, 'Sed id nunc in nisi pellentesque commodo. Donec malesuada, purus volutpat auctor accumsan, ante arcu scelerisque tellus, eget vulputate eros nisl at dolor. Etiam sit amet risus eget risus sodales tincidunt in ac orci. Curabitur suscipit rhoncus urna. Vestibulum ligula neque, vulputate vel vulputate non, luctus nec massa. Mauris ligula dui, rutrum sed condimentum non, dictum vitae risus. Sed eros ligula, auctor vitae porttitor elementum, iaculis non diam. Nullam euismod fermentum mi at pretium. Sed cursus, elit quis pharetra imperdiet, dolor nisi rhoncus neque, ac laoreet ipsum ligula ut elit. Donec sit amet velit mauris, sed dictum lorem. Vestibulum dignissim convallis mattis. Integer libero erat, rhoncus id interdum ac, vulputate vel justo. Aliquam ac est eu orci tincidunt ullamcorper sed sed sapien.', '2013-05-08', 1),
+	(3, 'Ut neque purus, convallis eget dictum ut, convallis ut nisi. Aenean auctor laoreet lacus, molestie placerat elit tincidunt sed. Pellentesque ullamcorper, mauris vel lacinia elementum, purus lectus porttitor risus, ac pellentesque felis nisi ut diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam rutrum metus sit amet ligula sollicitudin tincidunt. Integer rutrum neque sed odio varius ac luctus turpis varius. Aliquam interdum molestie orci, a vulputate mauris viverra et. Curabitur ipsum mi, facilisis vel venenatis et, scelerisque eu augue. Nulla facilisi.', '2013-05-09', 1),
+	(4, 'Nulla id turpis ipsum, sed consequat diam. Morbi pellentesque accumsan ultrices. Quisque est neque, pretium nec placerat id, varius eget turpis. In hac habitasse platea dictumst. Nunc tortor lacus, gravida non tincidunt ut, scelerisque ut velit. Donec porttitor metus non quam pulvinar posuere. Quisque venenatis lectus sit amet leo convallis blandit. Donec a nisl diam. Nunc ac nisi sit amet risus ullamcorper sodales pulvinar ac massa. Morbi adipiscing, lacus pellentesque imperdiet porttitor, elit magna accumsan risus, nec hendrerit odio felis eu enim. Fusce odio lacus, consectetur vel dignissim eu, fringilla nec justo. Phasellus eu nunc metus. Suspendisse potenti. Nam varius libero non mauris aliquet vehicula.', '2013-05-10', 2),
+	(5, 'Curabitur vel massa nec purus dictum dignissim. Nullam aliquam vestibulum risus. Etiam hendrerit justo in dui laoreet laoreet. Donec a dui nulla. Proin sagittis tortor odio, sed faucibus velit. Maecenas a tortor sem, iaculis molestie quam. Donec in enim felis, ac accumsan lorem. Cras tempus, justo sed luctus ullamcorper, purus elit pulvinar lacus, non rutrum quam purus id elit. Duis quis purus ut ligula feugiat cursus sed in arcu. Curabitur blandit, neque ac vestibulum interdum, orci tortor pulvinar purus, quis tincidunt justo nisi eu felis. Integer faucibus rutrum odio, quis dignissim orci pulvinar et. Donec urna eros, faucibus at volutpat vitae, porta id sapien. Vestibulum tempus, risus ullamcorper facilisis tristique, sem ligula cursus neque, a ultricies ante nunc quis sapien. Sed sed erat odio, vel feugiat erat.', '2013-05-11', 2),
+	(6, 'Praesent ac dui risus. Nam in est risus, ultricies accumsan mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus interdum nisi id neque blandit ornare sit amet non arcu. Donec sit amet velit sem. Proin eros nisi, ultrices nec dapibus dictum, laoreet non libero. Nulla facilisi. Duis sit amet elit enim. Nulla tellus nibh, ornare sit amet cursus et, pellentesque vel enim. Aliquam bibendum vehicula lorem ut dictum.', '2013-05-12', 2);
+/*!40000 ALTER TABLE `post` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
